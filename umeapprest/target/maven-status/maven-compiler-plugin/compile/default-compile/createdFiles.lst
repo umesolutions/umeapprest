@@ -1,0 +1,5 @@
+com\umesolutions\e2eapp\dao\LoginDAO.class
+com\umesolutions\e2eapp\dto\LoginDetails.class
+com\umesolutions\e2eapp\restservices\RestLoginService.class
+com\umesolutions\e2eapp\daoimpl\LoginDAOImpl.class
+com\umesolutions\e2eapp\daoimpl\DBConnection.class

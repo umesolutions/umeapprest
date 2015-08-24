@@ -1,5 +1,14 @@
+com\umesolutions\e2eapp\serviceimpl\RequestLoginServiceImpl.class
+com\umesolutions\e2eapp\dao\RegistrationRequestDAO.class
 com\umesolutions\e2eapp\dao\LoginDAO.class
-com\umesolutions\e2eapp\dto\LoginDetails.class
-com\umesolutions\e2eapp\restservices\RestLoginService.class
+com\umesolutions\e2eapp\restservices\RegistrationRequestService.class
+com\umesolutions\e2eapp\serviceimpl\RequestRegistrationServiceImpl.class
+com\umesolutions\e2eapp\dto\RegistrationRequest.class
 com\umesolutions\e2eapp\daoimpl\LoginDAOImpl.class
 com\umesolutions\e2eapp\daoimpl\DBConnection.class
+com\umesolutions\e2eapp\daoimpl\RegistrationRequestDAOImpl.class
+com\umesolutions\e2eapp\dto\LoginDetails.class
+com\umesolutions\e2eapp\service\RequestRegistrationService.class
+com\umesolutions\e2eapp\service\RequestLoginService.class
+com\umesolutions\e2eapp\restservices\RestLoginService.class
+com\umesolutions\e2eapp\restservices\RegistrationService.class

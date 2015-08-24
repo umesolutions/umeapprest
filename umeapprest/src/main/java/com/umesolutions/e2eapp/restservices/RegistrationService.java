@@ -3,6 +3,7 @@ package com.umesolutions.e2eapp.restservices;
 import java.sql.SQLException;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -15,11 +16,13 @@ import com.umesolutions.e2eapp.dto.LoginDetails;
 import com.umesolutions.e2eapp.service.RequestLoginService;
 import com.umesolutions.e2eapp.serviceimpl.RequestLoginServiceImpl;
 
-@Path("/LoginService")
-public class RestLoginService {
-	@GET
+@Path("/RegistrationService")
+public class RegistrationService {
+
+	@POST
+	@Path("/RegisterRetailer")
 	@Produces("application/json")
-	public Response requestLogin() throws JSONException {
+	public Response requestLogin(@PathParam("userName") String userName, @PathParam("password") String password) {
 
 		String result;
 		Gson gson = new Gson();
@@ -37,17 +40,16 @@ public class RestLoginService {
 	@Produces("application/json")
 	public Response convertFtoCfromInput(@PathParam("userName") String userName, @PathParam("password") String password)
 			throws SQLException, Exception {
-		String result; 
-		RequestLoginService loginsservice=new RequestLoginServiceImpl();
-		Gson gson=new Gson();
-		LoginDetails loginDetails=loginsservice.getLoginInfo(userName, password);
-		if(loginDetails==null){
-			result ="User Not Found";
+		String result;
+		RequestLoginService loginsservice = new RequestLoginServiceImpl();
+		Gson gson = new Gson();
+		LoginDetails loginDetails = loginsservice.getLoginInfo(userName, password);
+		if (loginDetails == null) {
+			result = "User Not Found";
+			return Response.status(200).entity(result).build();
+		} else {
+			result = gson.toJson(loginDetails);
 			return Response.status(200).entity(result).build();
 		}
-		else{
-		result=gson.toJson(loginDetails);		
-		return Response.status(200).entity(result).build();
 	}
-}
 }

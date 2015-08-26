@@ -9,12 +9,13 @@ public class RetailerRegistration {
 	private String city;
 	private String state;
 	private String country;
+	private String activationCode;
 	private Date created_date;
 	private Date last_updated;
 	private int Phone_number;
 	private String email_id;
-	private char Phone_verified;
-	private char Email_verified;
+	private String Phone_verified;
+	private String Email_verified;
 	private String phone_IME;
 	public String getRetailer_ID() {
 		return Retailer_ID;
@@ -52,6 +53,12 @@ public class RetailerRegistration {
 	public void setCountry(String country) {
 		this.country = country;
 	}
+	public String getActivationCode() {
+		return activationCode;
+	}
+	public void setActivationCode(String activationCode) {
+		this.activationCode = activationCode;
+	}
 	public Date getCreated_date() {
 		return created_date;
 	}
@@ -76,16 +83,16 @@ public class RetailerRegistration {
 	public void setEmail_id(String email_id) {
 		this.email_id = email_id;
 	}
-	public char getPhone_verified() {
+	public String getPhone_verified() {
 		return Phone_verified;
 	}
-	public void setPhone_verified(char phone_verified) {
+	public void setPhone_verified(String phone_verified) {
 		Phone_verified = phone_verified;
 	}
-	public char getEmail_verified() {
+	public String getEmail_verified() {
 		return Email_verified;
 	}
-	public void setEmail_verified(char email_verified) {
+	public void setEmail_verified(String email_verified) {
 		Email_verified = email_verified;
 	}
 	public String getPhone_IME() {
@@ -94,5 +101,13 @@ public class RetailerRegistration {
 	public void setPhone_IME(String phone_IME) {
 		this.phone_IME = phone_IME;
 	}
-	
+	@Override
+	public String toString() {
+		return "RetailerRegistration [Retailer_ID=" + Retailer_ID + ", Retailer_Name=" + Retailer_Name + ", Address="
+				+ Address + ", city=" + city + ", state=" + state + ", country=" + country + ", activationCode="
+				+ activationCode + ", created_date=" + created_date + ", last_updated=" + last_updated
+				+ ", Phone_number=" + Phone_number + ", email_id=" + email_id + ", Phone_verified=" + Phone_verified
+				+ ", Email_verified=" + Email_verified + ", phone_IME=" + phone_IME + "]";
+	}
+
 }

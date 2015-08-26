@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.jdbc.DatabaseMetaDataUsingInfoSchema;
 import com.umesolutions.e2eapp.dao.RegistrationDAO;
 import com.umesolutions.e2eapp.dto.RetailerRegistration;
 
@@ -23,7 +24,7 @@ public class RegistrationDAOImpl implements RegistrationDAO {
 		Connection con=dbConnection.getConnection();
 		try{
 			
-			String sql="INSERT INTO ume.retailer_registration (Retailer_ID,Retailer_Name,Address,city,state,country,created_date,last_updated,Phone_number,email_id,Phone_verified,Email_verified,phone_IME,activationCode) values (?,?,?,?,?,?,?,sysdate,sysdate,?,?,?,?,?,?)";
+			String sql="INSERT INTO ume.retailer_registration (Retailer_ID,Retailer_Name,Address,city,state,country,created_date,last_updated,Phone_number,email_id,Phone_verified,Email_verified,phone_IME,activationCode) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement preparedStatement=con.prepareStatement(sql);
 			preparedStatement.setString(1, retailerRegistration.getRetailer_ID());
 			preparedStatement.setString(2, retailerRegistration.getRetailer_Name());
@@ -31,35 +32,39 @@ public class RegistrationDAOImpl implements RegistrationDAO {
 			preparedStatement.setString(4, retailerRegistration.getCity());
 			preparedStatement.setString(5, retailerRegistration.getState());
 			preparedStatement.setString(6, retailerRegistration.getCountry());
-			preparedStatement.setInt(7, retailerRegistration.getPhone_number());
-			preparedStatement.setString(8, retailerRegistration.getEmail_id());
-			preparedStatement.setString(9, retailerRegistration.getPhone_verified()+"");
-			preparedStatement.setString(10, retailerRegistration.getEmail_verified()+"");
-			preparedStatement.setString(11, retailerRegistration.getPhone_IME());
-			preparedStatement.setString(12, retailerRegistration.getActivationCode());
+			preparedStatement.setDate(7, java.sql.Date.valueOf("2015-08-26"));
+			preparedStatement.setDate(8, java.sql.Date.valueOf("2015-08-26"));
+			preparedStatement.setLong(9, retailerRegistration.getPhone_number());
+			preparedStatement.setString(10, retailerRegistration.getEmail_id());
+			preparedStatement.setString(11, retailerRegistration.getPhone_verified()+"");
+			preparedStatement.setString(12, retailerRegistration.getEmail_verified()+"");
+			preparedStatement.setString(13, retailerRegistration.getPhone_IME());
+			preparedStatement.setString(14, retailerRegistration.getActivationCode());
 			if(preparedStatement.executeUpdate()>0){
+				System.out.println("True :"+sql);
 				return true;
 			}
 			else{
+				System.out.println("False :"+sql);
 				return false;
 			}
 		}
 		catch(SQLException e){
-			con.close();
+System.out.println(e.getMessage());
 			return false;
 		}
 		finally{
-			con.close();
 		}
 	}
 
 	@Override
 	public boolean updateRetailler(RetailerRegistration retailerRegistration, String retailerID) throws Exception {
 		// TODO Auto-generated method stub
+		System.out.println("I'm in update method");
 		Connection con=dbConnection.getConnection();
 		try{
 			
-			String sql="UPDATE ume.retailer_registration SET Retailer_ID = ?, Retailer_Name = ?, Address = ?, city = ?, state = ?, country =?, created_date =?, last_updated = ?, Phone_number = ?, email_id = ?, Phone_verified =?, Email_verified = ?, phone_IME = ?, activationCode = ? WHERE Retailer_ID = ? ";
+			String sql="UPDATE ume.retailer_registration SET Retailer_ID = ?, Retailer_Name = ?, Address = ?, city = ?, state = ?, country =?, Phone_number = ?, email_id = ?, Phone_verified =?, Email_verified = ?, phone_IME = ?, activationCode = ? WHERE Retailer_ID = ? ";
 			PreparedStatement preparedStatement=con.prepareStatement(sql);
 			preparedStatement.setString(1, retailerRegistration.getRetailer_ID());
 			preparedStatement.setString(2, retailerRegistration.getRetailer_Name());
@@ -67,25 +72,28 @@ public class RegistrationDAOImpl implements RegistrationDAO {
 			preparedStatement.setString(4, retailerRegistration.getCity());
 			preparedStatement.setString(5, retailerRegistration.getState());
 			preparedStatement.setString(6, retailerRegistration.getCountry());
-			preparedStatement.setInt(7, retailerRegistration.getPhone_number());
+			preparedStatement.setLong(7, retailerRegistration.getPhone_number());
 			preparedStatement.setString(8, retailerRegistration.getEmail_id());
 			preparedStatement.setString(9, retailerRegistration.getPhone_verified()+"");
 			preparedStatement.setString(10, retailerRegistration.getEmail_verified()+"");
 			preparedStatement.setString(11, retailerRegistration.getPhone_IME());
 			preparedStatement.setString(12, retailerRegistration.getActivationCode());
-			preparedStatement.setString(15, retailerID);if(preparedStatement.executeUpdate()>0){
+			preparedStatement.setString(13, retailerID);
+			System.out.println(retailerRegistration.toString());
+			if(preparedStatement.executeUpdate()>0){
+				System.out.println("Success");
 				return true;
 			}
 			else{
+				System.out.println("Failed");
 				return false;
 			}
 		}
 		catch(SQLException e){
-			con.close();
+			System.out.println("Error:"+e.getMessage());
 			return false;
 		}
 		finally{
-			con.close();
 		}
 		}
 
@@ -109,7 +117,6 @@ public class RegistrationDAOImpl implements RegistrationDAO {
 		return false;
 		}
 		finally{
-		 con.close();
 		}
 	}
 
@@ -177,7 +184,6 @@ public class RegistrationDAOImpl implements RegistrationDAO {
 			return null;
 		}
 		finally {
-			con.close();
 		}
 	}
 

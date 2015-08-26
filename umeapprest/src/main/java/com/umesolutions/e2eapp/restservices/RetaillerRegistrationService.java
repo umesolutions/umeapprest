@@ -26,7 +26,7 @@ public class RetaillerRegistrationService {
 			@QueryParam("city") String city, @QueryParam("state") String state, @QueryParam("country") String country,
 			@QueryParam("phoneNumber") String phoneNumber, @QueryParam("emailID") String emailID,
 			@QueryParam("phoneVerified") String phoneVerified, @QueryParam("emailVerified") String emailVerified,
-			@QueryParam("phoneIME") String phoneIME, @QueryParam("activationCode") String activationCode) {
+			@QueryParam("phoneIME") String phoneIME, @QueryParam("activationCode") String activationCode) throws Exception {
 		String result = null;
 		registrationService = new RegistrationServiceImpl();
 		RetailerRegistration retailerRegistration = new RetailerRegistration();
@@ -36,21 +36,19 @@ public class RetaillerRegistrationService {
 		retailerRegistration.setCity(city);
 		retailerRegistration.setState(state);
 		retailerRegistration.setCountry(country);
-		retailerRegistration.setPhone_number(Integer.parseInt(phoneNumber));
+		retailerRegistration.setPhone_number(Long.parseLong(phoneNumber));
 		retailerRegistration.setEmail_id(emailID);
 		retailerRegistration.setPhone_verified(phoneVerified);
 		retailerRegistration.setEmail_verified(emailVerified);
 		retailerRegistration.setPhone_IME(phoneIME);
 		retailerRegistration.setActivationCode(activationCode);
-		try {
-			if (registrationService.createRetailler(retailerRegistration)) {
+			boolean value=registrationService.createRetailler(retailerRegistration);
+			if (value) {
 				result = retailerRegistration.getRetailer_ID() + " retailer account has been created successfully";
 			} else {
 				result="Account creation failed.";
 			}
-		} catch (Exception e) {
-			result="Account creation failed";
-		}
+			System.out.println(result+": "+value);
 		return Response.status(200).entity(result).build();
 	}
 
@@ -60,7 +58,9 @@ public class RetaillerRegistrationService {
 	public Response updateRetailler(@QueryParam("retailerID") String retailerID,
 			@DefaultValue("noval") @QueryParam("retailerName") String retailerName, 
 			@DefaultValue("noval") @QueryParam("address") String address,
-			@DefaultValue("noval")  @QueryParam("city") String city, @QueryParam("state") String state, @QueryParam("country") String country,
+			@DefaultValue("noval")  @QueryParam("city") String city, 
+			@DefaultValue("noval") @QueryParam("state") String state, 
+			@DefaultValue("noval") @QueryParam("country") String country,
 			@DefaultValue("0") @QueryParam("phoneNumber") String phoneNumber, 
 			@DefaultValue("noval") @QueryParam("emailID") String emailID,
 			@DefaultValue("x") @QueryParam("phoneVerified") String phoneVerified, 
@@ -69,25 +69,28 @@ public class RetaillerRegistrationService {
 			@DefaultValue("noval") @QueryParam("activationCode") String activationCode) throws Exception {
 		registrationService = new RegistrationServiceImpl();
 		RetailerRegistration retailerRegistration =registrationService.getRetaillerDetails(retailerID);
-		retailerRegistration.setRetailer_ID(retailerID);
+		System.out.println("RetailerID"+retailerID);
 		retailerRegistration.setRetailer_Name(retailerName.equalsIgnoreCase("noval")?retailerRegistration.getRetailer_Name():retailerName);
 		retailerRegistration.setAddress(address.equalsIgnoreCase("noval")?retailerRegistration.getAddress():address);
 		retailerRegistration.setCity(city.equalsIgnoreCase("noval")?retailerRegistration.getCity():city);
 		retailerRegistration.setState(state.equalsIgnoreCase("noval")?retailerRegistration.getState():state);
 		retailerRegistration.setCountry(country.equalsIgnoreCase("noval")?retailerRegistration.getCountry():country);
-		retailerRegistration.setPhone_number(phoneNumber.equalsIgnoreCase("0")?retailerRegistration.getPhone_number():Integer.parseInt(phoneNumber));
+		retailerRegistration.setPhone_number(phoneNumber.equalsIgnoreCase("0")?retailerRegistration.getPhone_number():Long.parseLong(phoneNumber));
 		retailerRegistration.setEmail_id(emailID.equalsIgnoreCase("noval")?retailerRegistration.getEmail_id():emailID);
 		retailerRegistration.setPhone_verified(phoneVerified.equalsIgnoreCase("x")?retailerRegistration.getPhone_verified():phoneVerified);
 		retailerRegistration.setEmail_verified(emailVerified.equalsIgnoreCase("x")?retailerRegistration.getEmail_verified():emailVerified);
 		retailerRegistration.setPhone_IME(phoneIME.equalsIgnoreCase("noval")?retailerRegistration.getPhone_IME():phoneIME);
 		retailerRegistration.setActivationCode(activationCode.equalsIgnoreCase("noval")?retailerRegistration.getActivationCode():activationCode);
 		String result = null;
-		if(registrationService.updateRetailler(retailerRegistration, retailerID)){
+		System.out.println("Objected Created");
+		boolean value=registrationService.updateRetailler(retailerRegistration, retailerID);
+		if(value){
 			result= retailerID+" Details hass been udpated successfully";
 		}
 		else{
 			result=retailerID+" updation failed";
 		}
+		System.out.println("Value :"+value);
 		return Response.status(200).entity(result).build();
 	}
 	@GET

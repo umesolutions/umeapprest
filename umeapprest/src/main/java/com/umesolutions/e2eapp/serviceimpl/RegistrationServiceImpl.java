@@ -19,6 +19,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 	@Override
 	public boolean updateRetailler(RetailerRegistration retaillerRegistration, String retailerID) throws Exception {
 		// TODO Auto-generated method stub
+		System.out.println("Update method called");
 		return registrationDao.updateRetailler(retaillerRegistration, retailerID);
 	}
 

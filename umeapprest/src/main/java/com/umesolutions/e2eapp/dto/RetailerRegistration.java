@@ -12,7 +12,7 @@ public class RetailerRegistration {
 	private String activationCode;
 	private Date created_date;
 	private Date last_updated;
-	private int Phone_number;
+	private long Phone_number;
 	private String email_id;
 	private String Phone_verified;
 	private String Email_verified;
@@ -71,10 +71,10 @@ public class RetailerRegistration {
 	public void setLast_updated(Date last_updated) {
 		this.last_updated = last_updated;
 	}
-	public int getPhone_number() {
+	public long getPhone_number() {
 		return Phone_number;
 	}
-	public void setPhone_number(int phone_number) {
+	public void setPhone_number(long phone_number) {
 		Phone_number = phone_number;
 	}
 	public String getEmail_id() {

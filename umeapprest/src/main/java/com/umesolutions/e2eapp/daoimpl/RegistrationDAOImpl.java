@@ -93,8 +93,6 @@ System.out.println(e.getMessage());
 			System.out.println("Error:"+e.getMessage());
 			return false;
 		}
-		finally{
-		}
 		}
 
 	@Override

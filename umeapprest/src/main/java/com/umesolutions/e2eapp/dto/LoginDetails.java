@@ -5,8 +5,7 @@ public class LoginDetails {
     private String customerID;
     private String password;
     private String passCode;
-    private String userType;
-    
+    private String userType;    
 	private String userStatus;
     private String createdDate;
     private String lastLoginDate;

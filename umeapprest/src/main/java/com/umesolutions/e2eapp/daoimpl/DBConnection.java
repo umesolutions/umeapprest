@@ -7,14 +7,16 @@ public class DBConnection {
  
  public Connection getConnection() throws Exception
  {
+	 /* MySQL connnection*/ 
  try
  {
- String connectionURL = "jdbc:mysql://localhost:3306/ume";
+ String connectionURL = "jdbc:mysql://umesolutionsql.chx8beg1gv6a.us-west-2.rds.amazonaws.com:3306/ume";
  Connection connection = null;
  Class.forName("com.mysql.jdbc.Driver").newInstance();
- connection = DriverManager.getConnection(connectionURL, "root", "");
+ connection = DriverManager.getConnection(connectionURL, "root", "Sv25081985");
  return connection;
  }
+	 
  catch (SQLException e)
  {
  throw e;

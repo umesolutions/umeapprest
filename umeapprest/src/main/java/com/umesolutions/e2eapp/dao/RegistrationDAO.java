@@ -11,4 +11,6 @@ public interface RegistrationDAO {
 	public boolean deleteRetailler(String retaillerID) throws Exception;
 	public RetailerRegistration getRetaillerDetails(String retaillerID) throws Exception;
 	public List<RetailerRegistration> getAllRetaillerDetails() throws SQLException, Exception;
+	public String sendActivationCode(String mobileNumber, String name)throws SQLException, Exception;
+	
 }

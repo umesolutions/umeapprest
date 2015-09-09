@@ -2,6 +2,7 @@ com\umesolutions\e2eapp\serviceimpl\RequestLoginServiceImpl.class
 com\umesolutions\e2eapp\service\RegistrationService.class
 com\umesolutions\e2eapp\serviceimpl\RegistrationServiceImpl.class
 com\umesolutions\e2eapp\serviceimpl\StoreDetailsServiceImpl.class
+com\umesolutions\e2eapp\dto\Category.class
 com\umesolutions\e2eapp\restservices\StoreRegistrationService.class
 com\umesolutions\e2eapp\dao\StoreDetailsDAO.class
 com\umesolutions\e2eapp\dao\LoginDAO.class

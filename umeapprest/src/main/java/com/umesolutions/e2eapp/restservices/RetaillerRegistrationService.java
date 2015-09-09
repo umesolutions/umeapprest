@@ -147,5 +147,46 @@ public class RetaillerRegistrationService {
 		}
 		return Response.status(200).entity(result).build();
 	}
-	
+	@GET
+	@Path("/getActivationCode")
+	@Produces("application/json")
+	public Response getActivationCode(@DefaultValue("noval") @QueryParam("retailerName") String retailerName, @QueryParam("phoneNumber") String phoneNumber) {
+		String result=null;
+		registrationService = new RegistrationServiceImpl();
+		try{
+		String ActivationCode=registrationService.sendActivationCode(phoneNumber, retailerName);
+		if(ActivationCode!=null){
+		result=ActivationCode;
+		}
+		else{
+			result="sorry for inconvenient. Not able retireve Retailer details. Please try again.";
+		}
+		}catch(Exception e){
+			result="sorry for inconvenient. Not able retireve Retailer details. Please try again.";
+		}
+		return Response.status(200).entity(result).build();
+	}	
+
+@GET
+@Path("/ValidateActivationCodes")
+@Produces("application/json")
+public Response ValidateActivationCodes(@DefaultValue("noval") @QueryParam("retailerName") String retailerName, 
+		@DefaultValue("0") @QueryParam("phoneNumber") String phoneNumber, 
+		@DefaultValue("noval") @QueryParam("activationCode") String activationCode) {
+	String result=null;
+	registrationService = new RegistrationServiceImpl();
+	try{
+	RetailerRegistration retailerRegistration=registrationService.validationActivationCode(phoneNumber, retailerName, activationCode);
+	if(retailerRegistration!=null){
+		Gson gson=new Gson();
+		result=gson.toJson(retailerRegistration);
+	}
+	else{
+		result="sorry for inconvenient. Not able retireve Retailer details. Please try again.";
+	}
+	}catch(Exception e){
+		result="sorry for inconvenient. Not able retireve Retailer details. Please try again.";
+	}
+	return Response.status(200).entity(result).build();
+}	
 }

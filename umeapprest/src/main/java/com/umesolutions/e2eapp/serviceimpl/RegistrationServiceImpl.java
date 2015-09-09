@@ -1,5 +1,6 @@
 package com.umesolutions.e2eapp.serviceimpl;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.umesolutions.e2eapp.dao.RegistrationDAO;
@@ -9,7 +10,8 @@ import com.umesolutions.e2eapp.service.RegistrationService;
 
 public class RegistrationServiceImpl implements RegistrationService {
 
-	RegistrationDAO registrationDao=new RegistrationDAOImpl();
+	RegistrationDAO registrationDao = new RegistrationDAOImpl();
+
 	@Override
 	public boolean createRetailler(RetailerRegistration retaillerRegistration) throws Exception {
 		// TODO Auto-generated method stub
@@ -39,7 +41,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 			e.printStackTrace();
 			return null;
 		}
-		
+
 	}
 
 	@Override
@@ -52,6 +54,29 @@ public class RegistrationServiceImpl implements RegistrationService {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	@Override
+	public String sendActivationCode(String mobileNumber, String name) throws SQLException, Exception {
+		// TODO Auto-generated method stub
+		return registrationDao.sendActivationCode(mobileNumber, name);
+	}
+
+	@Override
+	public RetailerRegistration validationActivationCode(String mobileNumber, String name, String activationCode) {
+		// TODO Auto-generated method stub
+		RetailerRegistration retailerRegistration;
+		try {
+			retailerRegistration = registrationDao.getRetaillerDetails("R" + mobileNumber);
+			if (retailerRegistration.getActivationCode().equals(activationCode)
+					&& retailerRegistration.getPhone_number() == Long.parseLong(mobileNumber)) {
+               return retailerRegistration;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

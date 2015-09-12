@@ -1,8 +1,8 @@
 D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\dto\RetailerRegistration.java
-D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\dto\Category.java
 D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\daoimpl\DBConnection.java
 D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\service\RegistrationService.java
 D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\restservices\RestLoginService.java
+D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\daoimpl\CategoriesDAOImpl.java
 D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\restservices\StoreRegistrationService.java
 D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\serviceimpl\RegistrationServiceImpl.java
 D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\dao\LoginDAO.java
@@ -11,10 +11,16 @@ D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\service\RequestLoginServ
 D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\daoimpl\LoginDAOImpl.java
 D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\dao\RegistrationDAO.java
 D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\daoimpl\RegistrationDAOImpl.java
+D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\dto\RootCategory.java
+D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\serviceimpl\CategoriesServiceImpl.java
+D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\dto\SubCategories.java
 D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\serviceimpl\StoreDetailsServiceImpl.java
+D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\restservices\RestCategoryDetails.java
 D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\restservices\RetaillerRegistrationService.java
 D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\dto\LoginDetails.java
+D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\service\CategoryService.java
 D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\dto\StoreDetails.java
 D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\dao\StoreDetailsDAO.java
 D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\serviceimpl\RequestLoginServiceImpl.java
 D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\daoimpl\StoreDetailsDAOImpl.java
+D:\git\umeapprest\src\main\java\com\umesolutions\e2eapp\dao\CategoriesDAO.java

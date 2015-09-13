@@ -7,5 +7,5 @@ import com.umesolutions.e2eapp.dto.SubCategories;
 
 public interface CategoriesDAO {
   public List<RootCategory> getRootCategoriesList() throws Exception;
-  public List<SubCategories> getSubCategories(String rootCategoryID);
+  public List<SubCategories> getSubCategories(String rootCategoryID,String rootCategoryName) throws Exception;
 }

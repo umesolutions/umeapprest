@@ -36,6 +36,4 @@ public class SubCategories {
 	public void setParent_category_name(String parent_category_name) {
 		this.parent_category_name = parent_category_name;
 	}
-	
-
 }

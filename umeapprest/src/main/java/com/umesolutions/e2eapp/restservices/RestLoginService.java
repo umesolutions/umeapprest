@@ -19,25 +19,10 @@ import com.umesolutions.e2eapp.serviceimpl.RequestLoginServiceImpl;
 
 @Path("/LoginService")
 public class RestLoginService {
-	@GET
-	@Produces("application/json")
-	public Response requestLogin() throws JSONException {
-
-		String result;
-		Gson gson = new Gson();
-		LoginDetails loginDetails = new LoginDetails();
-		loginDetails.setCustomerID("12345");
-		loginDetails.setPassword("password");
-		loginDetails.setPassCode("1234");
-		loginDetails.setCreatedDate("date");
-		result = gson.toJson(loginDetails);
-		return Response.status(200).entity(result).build();
-	}
-
 	@Path("{userName}/{password}")
 	@GET
 	@Produces("application/json")
-	public Response convertFtoCfromInput(@PathParam("userName") String userName, @PathParam("password") String password)
+	public Response validateLogin(@PathParam("userName") String userName, @PathParam("password") String password)
 			throws SQLException, Exception {
 		String result; 
 		RequestLoginService loginsservice=new RequestLoginServiceImpl();
@@ -52,4 +37,5 @@ public class RestLoginService {
 		return Response.status(200).entity(result).build();
 	}
 }
+	
 }

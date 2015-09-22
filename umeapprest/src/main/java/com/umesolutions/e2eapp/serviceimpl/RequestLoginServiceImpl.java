@@ -16,5 +16,10 @@ public class RequestLoginServiceImpl implements RequestLoginService{
 		return loginDAO.getLoginDAOInfo(userName, password);
 		// TODO Auto-generated method stub
 	}
+	@Override
+	public boolean addLoginDetails(String username, String password, String usertype) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

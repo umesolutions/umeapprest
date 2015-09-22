@@ -17,9 +17,9 @@ public class RequestLoginServiceImpl implements RequestLoginService{
 		// TODO Auto-generated method stub
 	}
 	@Override
-	public boolean addLoginDetails(String username, String password, String usertype) {
+	public boolean addLoginDetails(String username, String password, String usertype) throws Exception {
 		// TODO Auto-generated method stub
-		return false;
+		return loginDAO.setLoginInfo(username, password,usertype);
 	}
 
 }

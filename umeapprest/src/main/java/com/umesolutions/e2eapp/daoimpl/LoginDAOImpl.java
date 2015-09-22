@@ -1,6 +1,7 @@
 package com.umesolutions.e2eapp.daoimpl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -43,12 +44,36 @@ public class LoginDAOImpl implements LoginDAO  {
 			
 		}	
 		 
-	   finally{
-		   con.close();
-		   
-	   }
 		return loginDetails;
 	     
 	}
 
+
+	@Override
+	public boolean setLoginInfo(String username, String password, String usertype) throws Exception {
+		// TODO Auto-generated method stub
+		dbConnection=new DBConnection();
+		Connection con= dbConnection.getConnection();
+try{
+		String sql = "INSERT INTO ume.logindetails (customerID,password,passcode,userType,userStatus,createdDate,lastLoginDate) VALUES (?,?,?,?,?,?,?)";
+		PreparedStatement preparedStatement = con.prepareStatement(sql);
+		preparedStatement.setString(1, username);
+		preparedStatement.setString(2, password);
+		preparedStatement.setString(3, usertype);
+		preparedStatement.setString(4, "ACTIVE");
+		preparedStatement.setDate(5, java.sql.Date.valueOf("2015-08-26"));
+		preparedStatement.setDate(6, java.sql.Date.valueOf("2015-08-26"));
+		if (preparedStatement.executeUpdate() > 0) {
+			System.out.println("True :" + sql);
+			return true;
+		} else {
+			System.out.println("False :" + sql);
+			return false;
+		}
+	} catch (SQLException e) {
+		System.out.println(e.getMessage());
+		return false;
+	}
+	}
 }
+

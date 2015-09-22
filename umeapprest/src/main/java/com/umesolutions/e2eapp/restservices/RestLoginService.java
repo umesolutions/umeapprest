@@ -54,8 +54,13 @@ public class RestLoginService {
 			loginDetails.setUserType(usertype);
 			loginDetails.setCreatedDate(new Date(2015,8,12).toString());
 			loginDetails.setLastLoginDate(new Date(2015,8,12).toString());
-			loginsservice.addLoginDetails(userName, password, usertype);
-			result="User Login Details has been added successfully";
+			if(loginsservice.addLoginDetails(userName, password, usertype)){
+				result="User Login Details has been added successfully";	
+			}
+			else{
+				result="User Login Details updation failed. Please try again";
+			}
+			
 			return Response.status(200).entity(result).build();
 		}
 }

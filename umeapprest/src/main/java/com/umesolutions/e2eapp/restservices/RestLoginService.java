@@ -39,7 +39,7 @@ public class RestLoginService {
 		return Response.status(200).entity(result).build();
 	}
 	}
-		@Path("addLoginDetails")
+		@Path("/addLoginDetails")
 		@GET
 		@Produces("application/json")
 		public Response addLoginDetails(@QueryParam("username") String userName, @QueryParam("password") String password,@QueryParam("usertype") String usertype)
@@ -54,7 +54,7 @@ public class RestLoginService {
 			loginDetails.setUserType(usertype);
 			loginDetails.setCreatedDate(new Date(2015,8,12).toString());
 			loginDetails.setLastLoginDate(new Date(2015,8,12).toString());
-			if(loginsservice.addLoginDetails(userName, password, usertype)){
+			if(loginsservice.addLoginDetails(loginDetails)){
 				result="User Login Details has been added successfully";	
 			}
 			else{

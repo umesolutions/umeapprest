@@ -17,9 +17,11 @@ public class RequestLoginServiceImpl implements RequestLoginService{
 		// TODO Auto-generated method stub
 	}
 	@Override
-	public boolean addLoginDetails(String username, String password, String usertype) throws Exception {
+	public boolean addLoginDetails(LoginDetails loginDetails) throws Exception {
 		// TODO Auto-generated method stub
-		return loginDAO.setLoginInfo(username, password,usertype);
+		loginDAO=new LoginDAOImpl();
+		System.out.println("Service Method Executed");
+		return loginDAO.setLoginInfo(loginDetails);
 	}
 
 }

@@ -12,31 +12,31 @@ public class StoreDetailsServiceImpl implements StoreDetailsService {
 	StoreDetailsDAO storeDetailsDAO = new StoreDetailsDAOImpl();
 
 	@Override
-	public boolean createStore(StoreDetails storeDetails) throws Exception {
+	public boolean createStore(StoreDetails storeDetails) {
 		// TODO Auto-generated method stub
 		return storeDetailsDAO.createStore(storeDetails);
 	}
 
 	@Override
-	public boolean updateStore(StoreDetails storeDetails, String storeID) throws Exception {
+	public boolean updateStore(StoreDetails storeDetails, String storeID){
 		// TODO Auto-generated method stub
 		return storeDetailsDAO.updateStore(storeDetails, storeID);
 	}
 
 	@Override
-	public boolean deleteStore(String storeID) throws Exception {
+	public boolean deleteStore(String storeID){
 		// TODO Auto-generated method stub
 		return storeDetailsDAO.deleteStore(storeID);
 	}
 
 	@Override
-	public StoreDetails getStoreDetails(String storeID) throws Exception {
+	public StoreDetails getStoreDetails(String storeID){
 		// TODO Auto-generated method stub
 		return storeDetailsDAO.getStoreDetails(storeID);
 	}
 
 	@Override
-	public List<StoreDetails> getAllStoreDetails() throws SQLException, Exception {
+	public List<StoreDetails> getAllStoreDetails() {
 		// TODO Auto-generated method stub
 		return storeDetailsDAO.getAllStoreDetails();
 	}

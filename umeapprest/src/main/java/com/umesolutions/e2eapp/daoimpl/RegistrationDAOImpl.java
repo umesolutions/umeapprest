@@ -9,12 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.log4j.Logger;
+
 import com.mysql.jdbc.DatabaseMetaDataUsingInfoSchema;
 import com.umesolutions.e2eapp.dao.RegistrationDAO;
 import com.umesolutions.e2eapp.dto.RetailerRegistration;
 
 public class RegistrationDAOImpl implements RegistrationDAO {
+	Logger logger = Logger.getLogger(RegistrationDAOImpl.class);
 	private DBConnection dbConnection;
+	private Connection con;
 
 	public RegistrationDAOImpl() {
 		// TODO Auto-generated constructor stub
@@ -22,12 +26,20 @@ public class RegistrationDAOImpl implements RegistrationDAO {
 	}
 
 	@Override
-	public boolean createRetailler(RetailerRegistration retailerRegistration) throws Exception {
+	public boolean createRetailler(RetailerRegistration retailerRegistration) {
 		// TODO Auto-generated method stub
-		Connection con = dbConnection.getConnection();
+
+		try {
+			con = dbConnection.getConnection();
+			logger.info("Database Connection has been created");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			logger.error(e1.getMessage());
+		}
 		try {
 
 			String sql = "INSERT INTO ume.retailer_registration (Retailer_ID,Retailer_Name,Address,city,state,country,created_date,last_updated,Phone_number,email_id,Phone_verified,Email_verified,phone_IME,activationCode) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			logger.info("SQL "+sql);
 			PreparedStatement preparedStatement = con.prepareStatement(sql);
 			preparedStatement.setString(1, retailerRegistration.getRetailer_ID());
 			preparedStatement.setString(2, retailerRegistration.getRetailer_Name());
@@ -44,27 +56,32 @@ public class RegistrationDAOImpl implements RegistrationDAO {
 			preparedStatement.setString(13, retailerRegistration.getPhone_IME());
 			preparedStatement.setString(14, retailerRegistration.getActivationCode());
 			if (preparedStatement.executeUpdate() > 0) {
-				System.out.println("True :" + sql);
+			logger.info("Retailer details has been created");
 				return true;
 			} else {
-				System.out.println("False :" + sql);
+				logger.info("Retailer creation failed");
 				return false;
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			logger.info(e.getMessage());
 			return false;
-		} finally {
-		}
+		} 
 	}
 
 	@Override
-	public boolean updateRetailler(RetailerRegistration retailerRegistration, String retailerID) throws Exception {
+	public boolean updateRetailler(RetailerRegistration retailerRegistration, String retailerID) {
 		// TODO Auto-generated method stub
 		System.out.println("I'm in update method");
-		Connection con = dbConnection.getConnection();
+		try {
+			con = dbConnection.getConnection();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			logger.error(e1.getMessage());
+		}
 		try {
 
 			String sql = "UPDATE ume.retailer_registration SET Retailer_ID = ?, Retailer_Name = ?, Address = ?, city = ?, state = ?, country =?, Phone_number = ?, email_id = ?, Phone_verified =?, Email_verified = ?, phone_IME = ?, activationCode = ? WHERE Retailer_ID = ? ";
+			logger.info("SQL "+sql);
 			PreparedStatement preparedStatement = con.prepareStatement(sql);
 			preparedStatement.setString(1, retailerRegistration.getRetailer_ID());
 			preparedStatement.setString(2, retailerRegistration.getRetailer_Name());
@@ -79,47 +96,62 @@ public class RegistrationDAOImpl implements RegistrationDAO {
 			preparedStatement.setString(11, retailerRegistration.getPhone_IME());
 			preparedStatement.setString(12, retailerRegistration.getActivationCode());
 			preparedStatement.setString(13, retailerID);
-			System.out.println(retailerRegistration.toString());
+			logger.info(retailerRegistration.toString());
 			if (preparedStatement.executeUpdate() > 0) {
-				System.out.println("Success");
+				logger.info("Retailer updation successful");
 				return true;
 			} else {
-				System.out.println("Failed");
+				logger.info("Retailer updation failed");
 				return false;
 			}
 		} catch (SQLException e) {
-			System.out.println("Error:" + e.getMessage());
+			logger.error("Error:" + e.getMessage());
 			return false;
 		}
 	}
 
 	@Override
-	public boolean deleteRetailler(String retaillerID) throws Exception {
+	public boolean deleteRetailler(String retaillerID) {
 		// TODO Auto-generated method stub
-		Connection con = dbConnection.getConnection();
+		try {
+			con = dbConnection.getConnection();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			logger.error(e1.getMessage());
+		}
 		try {
 
 			String sql = "DELETE FROM ume.retailer_registration WHERE Retailer_ID=?";
 			PreparedStatement preparedStatement = con.prepareStatement(sql);
 			preparedStatement.setString(1, retaillerID);
 			if (preparedStatement.executeUpdate() > 0) {
+				logger.info("Deleted Retailer ID :"+retaillerID);
 				return true;
 			} else {
+				logger.info("Deleting Retailer ID :"+retaillerID +"got failed");
 				return false;
 			}
 
 		} catch (Exception e) {
+			logger.error("SQL error occured"+e.getMessage());
 			return false;
-		} finally {
-		}
+		} 
 	}
 
 	@Override
-	public RetailerRegistration getRetaillerDetails(String retaillerID) throws Exception {
+	public RetailerRegistration getRetaillerDetails(String retaillerID){
 		// TODO Auto-generated method stub
-		Connection con = dbConnection.getConnection();
+		try {
+			con = dbConnection.getConnection();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		RetailerRegistration retailerRegistration = null;
-		Statement st = con.createStatement();
+		Statement st;
+		try {
+			st = con.createStatement();
+		
 		String sql = "SELECT * FROM ume.retailer_registration where Retailer_ID='" + retaillerID + "'";
 		ResultSet rs = st.executeQuery(sql);
 		while (rs.next()) {
@@ -139,13 +171,26 @@ public class RegistrationDAOImpl implements RegistrationDAO {
 			retailerRegistration.setPhone_IME(rs.getString(13));
 			retailerRegistration.setActivationCode(rs.getString(14));
 		}
+		logger.info("Retailer Registration "+retailerRegistration);
 		return retailerRegistration;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			logger.error("Exception "+e.getMessage());
+			return null;
+		}
 	}
 
 	@Override
-	public List<RetailerRegistration> getAllRetaillerDetails() throws Exception {
+	public List<RetailerRegistration> getAllRetaillerDetails() {
 
-		Connection con = dbConnection.getConnection();
+		
+		try {
+			con = dbConnection.getConnection();
+			logger.info("Database Connection has been created");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			logger.error(e1.getMessage());
+		}
 		List<RetailerRegistration> retailerRegistrationList = new ArrayList<RetailerRegistration>();
 		try {
 			Statement st = con.createStatement();
@@ -169,45 +214,55 @@ public class RegistrationDAOImpl implements RegistrationDAO {
 				retailerRegistration.setActivationCode(rs.getString(14));
 				retailerRegistrationList.add(retailerRegistration);
 			}
-			if (retailerRegistrationList.size() != 0)
+			if (retailerRegistrationList.size() != 0){
+				logger.info("Retailler List "+retailerRegistrationList.toString());
 				return retailerRegistrationList;
-			else
+			}
+			else{
+				logger.info("Retailer List is empty");
 				return null;
+			}
 		} catch (Exception e) {
+			logger.error("Exception :"+e.getMessage());
 			return null;
-		} finally {
-		}
+		} 
 	}
 
 	@Override
-	public String sendActivationCode(String mobileNumber, String name) throws SQLException, Exception {
+	public String sendActivationCode(String mobileNumber, String name) {
 		// TODO Auto-generated method stub
 		long randomInt = Long.parseLong(mobileNumber);
 		Random randomGenerator = new Random();
 		long activationCode = (randomGenerator.nextLong()) % 10000;
 		String Retailer_ID = "R" + mobileNumber;
-		Connection con = dbConnection.getConnection();
+		
+		try {
+			con = dbConnection.getConnection();
+			logger.info("connection has been created");
+		} catch (Exception e1) {
+			logger.error("connection failed");
+		}
 		try {
 
 			String sql = "INSERT INTO ume.retailer_registration (Retailer_ID,Retailer_Name,Phone_number,activationCode) values (?,?,?,?)";
+			logger.info("SQL "+sql);
 			PreparedStatement preparedStatement = con.prepareStatement(sql);
 			preparedStatement.setString(1, Retailer_ID);
 			preparedStatement.setString(2, name);
 			preparedStatement.setString(3, mobileNumber);
-			preparedStatement.setString(4, "OTP" + activationCode);			
+			preparedStatement.setString(4, "OTP" + activationCode);
 			if (preparedStatement.executeUpdate() > 0) {
-				System.out.println("True :" + sql);
-				return "OTP" + activationCode;
+				logger.info("New Retailer Created. Generated OTP is "+activationCode);
+				return activationCode+"";
 			} else {
-				System.out.println("False :" + sql);
+				logger.info("User Creation Failed :");
 				return "Error";
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			logger.error("Database Exception :");
 			return "Error";
 		}
 
 	}
 
-	
 }

@@ -10,14 +10,14 @@ import com.umesolutions.e2eapp.service.RequestLoginService;
 public class RequestLoginServiceImpl implements RequestLoginService{
     LoginDAO loginDAO;
 	@Override
-	public LoginDetails getLoginInfo(String userName, String password) throws SQLException, Exception {
+	public LoginDetails getLoginInfo(String userName, String password){
 		loginDAO=new LoginDAOImpl();
 		
 		return loginDAO.getLoginDAOInfo(userName, password);
 		// TODO Auto-generated method stub
 	}
 	@Override
-	public boolean addLoginDetails(LoginDetails loginDetails) throws Exception {
+	public boolean addLoginDetails(LoginDetails loginDetails){
 		// TODO Auto-generated method stub
 		loginDAO=new LoginDAOImpl();
 		System.out.println("Service Method Executed");

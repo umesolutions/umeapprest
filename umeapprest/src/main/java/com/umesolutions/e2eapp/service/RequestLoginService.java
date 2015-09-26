@@ -6,7 +6,7 @@ import com.umesolutions.e2eapp.dto.LoginDetails;
 
 public interface RequestLoginService {
 	
-	public LoginDetails getLoginInfo(String userName, String password) throws SQLException, Exception;
-	public boolean addLoginDetails(LoginDetails loginDetails) throws Exception;
+	public LoginDetails getLoginInfo(String userName, String password);
+	public boolean addLoginDetails(LoginDetails loginDetails);
 
 }

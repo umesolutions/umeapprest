@@ -13,20 +13,20 @@ public class RegistrationServiceImpl implements RegistrationService {
 	RegistrationDAO registrationDao = new RegistrationDAOImpl();
 
 	@Override
-	public boolean createRetailler(RetailerRegistration retaillerRegistration) throws Exception {
+	public boolean createRetailler(RetailerRegistration retaillerRegistration) {
 		// TODO Auto-generated method stub
 		return registrationDao.createRetailler(retaillerRegistration);
 	}
 
 	@Override
-	public boolean updateRetailler(RetailerRegistration retaillerRegistration, String retailerID) throws Exception {
+	public boolean updateRetailler(RetailerRegistration retaillerRegistration, String retailerID) {
 		// TODO Auto-generated method stub
 		System.out.println("Update method called");
 		return registrationDao.updateRetailler(retaillerRegistration, retailerID);
 	}
 
 	@Override
-	public boolean deleteRetailler(String retaillerID) throws Exception {
+	public boolean deleteRetailler(String retaillerID){
 		// TODO Auto-generated method stub
 		return registrationDao.deleteRetailler(retaillerID);
 	}
@@ -57,7 +57,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 	}
 
 	@Override
-	public String sendActivationCode(String mobileNumber, String name) throws SQLException, Exception {
+	public String sendActivationCode(String mobileNumber, String name) {
 		// TODO Auto-generated method stub
 		return registrationDao.sendActivationCode(mobileNumber, name);
 	}

@@ -11,12 +11,12 @@ import com.umesolutions.e2eapp.service.CategoryService;
 public class CategoriesServiceImpl implements CategoryService {
 	CategoriesDAO categoriesDAO=new CategoriesDAOImpl();
 	@Override
-	public List<RootCategory> getRootCategoriesList() throws Exception {
+	public List<RootCategory> getRootCategoriesList() {
 		// TODO Auto-generated method stub
 		return categoriesDAO.getRootCategoriesList();
 	}
 	@Override
-	public List<SubCategories> getSubCategories(String rootCategoryID, String rootCategoryName) throws Exception {
+	public List<SubCategories> getSubCategories(String rootCategoryID, String rootCategoryName) {
 		// TODO Auto-generated method stub
 		return categoriesDAO.getSubCategories(rootCategoryID, rootCategoryName);
 	}

@@ -8,21 +8,29 @@ import java.sql.Statement;
 
 import javax.sql.DataSource;
 
+import org.apache.log4j.Logger;
+
 import com.umesolutions.e2eapp.dao.LoginDAO;
 import com.umesolutions.e2eapp.dto.LoginDetails;
 
 public class LoginDAOImpl implements LoginDAO {
-
+	Logger logger=Logger.getLogger(LoginDAOImpl.class);
 	private DBConnection dbConnection;
-
+    private Connection con;
 	@Override
-	public LoginDetails getLoginDAOInfo(String username, String password) throws Exception {
+	public LoginDetails getLoginDAOInfo(String username, String password) {
 		// TODO Auto-generated method stub
 		dbConnection = new DBConnection();
 		LoginDetails loginDetails = null;
-		Connection con = dbConnection.getConnection();
+		
 		try {
-
+			con = dbConnection.getConnection();
+			logger.info("Database connection Created");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			logger.error("Connection Failed");
+		}
+		try {
 			String SQL = "SELECT * FROM ume.logindetails where customerID='" + username + "'" + " and password='"
 					+ password + "'";
 			System.out.println(SQL);
@@ -38,9 +46,10 @@ public class LoginDAOImpl implements LoginDAO {
 				loginDetails.setCreatedDate(rs.getDate(6).toString());
 				loginDetails.setLastLoginDate(rs.getDate(7).toString());
 			}
+			logger.info(loginDetails.toString());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 
 		}
 
@@ -49,11 +58,17 @@ public class LoginDAOImpl implements LoginDAO {
 	}
 
 	@Override
-	public boolean setLoginInfo(LoginDetails loginDetails) throws Exception {
+	public boolean setLoginInfo(LoginDetails loginDetails){
 		// TODO Auto-generated method stub
 		dbConnection = new DBConnection();
 		System.out.println("DB connection Created");
-		Connection con = dbConnection.getConnection();
+		try {
+			con = dbConnection.getConnection();
+			logger.info("Database connection created ");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			logger.error(e1.getMessage());
+		}
 		try {
 			String sql = "INSERT INTO ume.logindetails (customerID,password,passcode,userType,userStatus,createdDate,lastLoginDate) VALUES (?,?,?,?,?,?,?)";
 			System.out.println("Starting sql :::"+sql);
@@ -66,14 +81,14 @@ public class LoginDAOImpl implements LoginDAO {
 			preparedStatement.setDate(6, java.sql.Date.valueOf("2015-08-26"));
 			preparedStatement.setDate(7, java.sql.Date.valueOf("2015-08-26"));
 			if (preparedStatement.executeUpdate() > 0) {
-				System.out.println("True :" + sql);
+			   logger.info("User "+ loginDetails.getCustomerID()+" has been created");
 				return true;
 			} else {
-				System.out.println("False :" + sql);
+				logger.error("User "+ loginDetails.getCustomerID()+" creation failed");
 				return false;
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			logger.error("SQL Exception :"+e.getMessage());
 			return false;
 		}
 	}

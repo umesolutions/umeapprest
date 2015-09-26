@@ -6,6 +6,6 @@ import com.umesolutions.e2eapp.dto.CategoryToDistributor;
 
 public interface DistributorDAO {
 	
-	public List<CategoryToDistributor> getDistributorList(String CategoryID) throws Exception;
+	public List<CategoryToDistributor> getDistributorList(String CategoryID);
 
 }
